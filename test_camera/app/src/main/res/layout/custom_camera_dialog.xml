@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- SurfaceView para la vista previa de la cámara (mitad superior) -->
+    <SurfaceView
+        android:id="@+id/cameraPreviewSurfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- EditText de fondo (mitad inferior) -->
+    <EditText
+        android:id="@+id/backgroundEditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Texto de fondo"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>
