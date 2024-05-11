@@ -9,17 +9,28 @@
         android:id="@+id/cameraPreviewSurfaceView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="0.5" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/switchCameraButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:contentDescription="@string/switch_camera"
+        android:src="@drawable/ic_switch_camera" />
+
 
     <!-- EditText de fondo -->
     <EditText
         android:id="@+id/backgroundEditText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:hint="Texto de fondo"
         android:gravity="center"
         android:textSize="20sp"
         android:textColor="@android:color/black" />
+
+    <!-- Botón flotante -->
 
 </LinearLayout>
