@@ -7,10 +7,12 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CaptureRequest
+import android.hardware.camera2.params.SessionConfiguration
 import android.os.Bundle
 import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -42,6 +44,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             setupCameraIds()
             setupCustomCameraDialog()
+            if (cameraManager.cameraIdList.size == 1) {
+                switchCameraButton.visibility = View.INVISIBLE;
+            }
         }
     }
 
@@ -57,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 backCameraId = id
             }
         }
-        cameraId = frontCameraId // Por defecto, usar la cámara trasera al iniciar
+        cameraId = frontCameraId // Por defecto, usar la cámara frontal al iniciar
     }
 
     private fun allPermissionsGranted() =
@@ -100,11 +105,26 @@ class MainActivity : AppCompatActivity() {
             } else {
                 cameraId = backCameraId // Cambiar a la cámara trasera
             }
+            cameraDevice.close()
             startCameraPreview()
         }
     }
 
     private fun startCameraPreview() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
         cameraManager.openCamera(cameraId!!, object : CameraDevice.StateCallback() {
             override fun onOpened(camera: CameraDevice) {
                 cameraDevice = camera
